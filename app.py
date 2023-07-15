@@ -58,7 +58,7 @@ class MainWindow(QMainWindow):
             show_error(e)
             return
         self.canvas.axes.clear()
-        self.canvas.plot_function(func, x_min, x_max, type=self.function_form.plot_type)
+        self.canvas.plot_function(func, x_min, x_max)
 
 
 app = QApplication(sys.argv)
