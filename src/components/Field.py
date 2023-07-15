@@ -2,7 +2,7 @@ from PySide2.QtCore import QRegExp
 from PySide2.QtGui import QPalette, QColor, Qt, QRegExpValidator
 from PySide2.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QWidget, QHBoxLayout, QVBoxLayout, \
     QDoubleSpinBox
-
+from src.Utils import allowed_names
 
 class Field(QWidget):
     def __init__(self, label: QLabel, w: QWidget, parent=None):
@@ -25,38 +25,24 @@ class NumberField(Field):
     def __init__(self, label: QLabel, line_edit: QLineEdit, parent=None):
         super(NumberField, self).__init__(label, line_edit, parent)
         line_edit.setPlaceholderText("-10 or 3/4 \U0001D6D1")
-        line_edit.setClearButtonEnabled(True)
 
         pattern = QRegExp("^-?[0-9]+[./]?[0-9]+$")
         input_validator = QRegExpValidator(pattern, line_edit)
         line_edit.setValidator(input_validator)
 
-    def get_input(self):
-        return float(self.widget.text())
-
 
 class FunctionField(Field):
     def __init__(self, label: QLabel, line_edit: QLineEdit, parent=None):
         super(FunctionField, self).__init__(label, line_edit, parent)
+        self.line_edit = line_edit
         line_edit.setPlaceholderText("5*x^3 + 2*x")
         line_edit.setClearButtonEnabled(True)
+        # pattern = QRegExp(f"^[*x^0-9+-/()\se]+$")
+        # self.input_validator = QRegExpValidator(pattern, line_edit)
+        # line_edit.setValidator(self.input_validator)
 
-        pattern = QRegExp("^[*x^0-9+-/]+$")
-        input_validator = QRegExpValidator(pattern, line_edit)
-        line_edit.setValidator(input_validator)
+    def get(self) -> str:
+        return self.line_edit.text()
 
-
-
-
-
-# if __name__ == '__main__':
-#     import sys
-#
-#     app = QApplication(sys.argv)
-#     window = QMainWindow()
-#     window.setWindowTitle("My App")
-#     window.setStyleSheet("background-color: white")
-#     widget = FieldFactory.create_field(FieldFactory(), "TEXT", QLabel("Enter your text"), QLineEdit())
-#     window.setCentralWidget(widget)
-#     window.show()
-#     app.exec_()
+    def append(self, text):
+        self.line_edit.setText(self.line_edit.text() + text)

@@ -1,5 +1,8 @@
+from PySide2.QtGui import Qt
+
 from src.components.FieldFactory import FieldFactory
 from PySide2.QtWidgets import QLabel, QLineEdit, QGroupBox, QVBoxLayout, QHBoxLayout, QPushButton
+from src.Utils import parse_function
 
 
 class Form(QGroupBox):
@@ -8,9 +11,9 @@ class Form(QGroupBox):
 
         self.setTitle("Function Input")
         self.setContentsMargins(10, 10, 10, 10)
-        self.setFixedHeight(150)
 
         field_layout = QVBoxLayout()
+        field_layout.setAlignment( Qt.AlignTop)
         min_max_layout = QHBoxLayout()
         self.field_factory = FieldFactory()
 
@@ -34,7 +37,8 @@ class Form(QGroupBox):
         self.setStyleSheet("QGroupBox { border: 1px solid red; border-radius: 3px; margin-top: 0.5em; }")
 
     def get_inputs(self):
-        func , x_min, x_max = self.function_field.get_input(), self.min_field.get_input(), self.max_field.get_input()
+        func, x_min, x_max = self.function_field.get_input(), self.min_field.get_input(), self.max_field.get_input()
+        func = parse_function(func)
         return func, x_min, x_max
 
 

@@ -13,5 +13,7 @@ class MplCanvas(FigureCanvasQTAgg):
     def plot_function(self, func, x_min, x_max, num_points=1000):
         x = np.linspace(x_min, x_max, num_points)
         y = func(x)
-        self.axes.plot(x, y)
+        if np.shape(y) != np.shape(x):
+            y = np.linspace(y, y, num_points)
+        self.axes.plot(x, y, 'r')
         self.draw()
