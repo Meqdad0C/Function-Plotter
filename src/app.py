@@ -31,6 +31,13 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(widget)
         self.show()
 
+    def plot_function(self):
+        func, x_min, x_max = self.function_form.get_inputs()
+        print(func, x_min, x_max)
+        func = eval(f'lambda x: {func}')
+        print(func)
+        self.canvas.axes.clear()
+        self.canvas.plot_function(func, x_min, x_max)
 
 
 app = QApplication(sys.argv)

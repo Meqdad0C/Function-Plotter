@@ -17,6 +17,9 @@ class Field(QWidget):
 
         self.setLayout(layout)
 
+    def get_input(self):
+        return self.widget.text()
+
 
 class NumberField(Field):
     def __init__(self, label: QLabel, line_edit: QLineEdit, parent=None):
@@ -27,6 +30,9 @@ class NumberField(Field):
         pattern = QRegExp("^-?[0-9]+[./]?[0-9]+$")
         input_validator = QRegExpValidator(pattern, line_edit)
         line_edit.setValidator(input_validator)
+
+    def get_input(self):
+        return float(self.widget.text())
 
 
 class FunctionField(Field):
