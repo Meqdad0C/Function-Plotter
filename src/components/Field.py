@@ -24,7 +24,7 @@ class Field(QWidget):
 class NumberField(Field):
     def __init__(self, label: QLabel, line_edit: QLineEdit, parent=None):
         super(NumberField, self).__init__(label, line_edit, parent)
-        line_edit.setPlaceholderText("-10 or 3/4 \U0001D6D1")
+        line_edit.setPlaceholderText("-10 or 7.5")
 
         pattern = QRegExp("^-?[0-9]+[./]?[0-9]+$")
         input_validator = QRegExpValidator(pattern, line_edit)

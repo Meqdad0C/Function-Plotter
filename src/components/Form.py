@@ -35,8 +35,23 @@ class Form(QGroupBox):
         radio_layout.addWidget(self.radian_radio)
         radio_layout.addWidget(self.degree_radio)
 
+        plot_type_group = QGroupBox("x-axis label")
+        plot_type_group.setFlat(True)
+        plot_type_group.setMinimumHeight(50)
+        plot_type_layout = QHBoxLayout()
+        plot_type_layout.setAlignment(Qt.AlignLeft)
+        self.plot_type = "normal"
+        self.normal_radio = QRadioButton("Normal")
+        self.polar_radio = QRadioButton("PI")
+        self.normal_radio.setChecked(True)
+        self.normal_radio.toggled.connect(self.toggle_plot_type)
+        plot_type_layout.addWidget(self.normal_radio)
+        plot_type_layout.addWidget(self.polar_radio)
+        plot_type_group.setLayout(plot_type_layout)
+        plot_type_group.setStyleSheet("QGroupBox { border: 0px solid red; border-radius: 3px; margin-top: 0.1em; }")
+
         self.plot_button = QPushButton("Plot")
-        self.plot_button.setStyleSheet("background-color: #4CAF50; color: white; border-radius: 5px; padding: 5px;")
+        self.plot_button.setStyleSheet("background-color: #4CAF50; color: white; border-radius: 5px; padding: 10px;")
         self.plot_button.clicked.connect(parent.plot_function)
 
         min_max_layout.addWidget(self.min_field)
@@ -45,10 +60,11 @@ class Form(QGroupBox):
         field_layout.addWidget(self.function_field)
         field_layout.addLayout(min_max_layout)
         field_layout.addLayout(radio_layout)
+        field_layout.addWidget(plot_type_group)
         field_layout.addWidget(self.plot_button)
 
         self.setLayout(field_layout)
-        self.setStyleSheet("QGroupBox { border: 1px solid red; border-radius: 3px; margin-top: 0.5em; }")
+        self.setStyleSheet("QGroupBox { border: 1px solid red; border-radius: 3px; margin-top: 0.1em; }")
 
     def get_inputs(self):
         func, x_min, x_max = self.function_field.get_input(), self.min_field.get_input(), self.max_field.get_input()
@@ -61,6 +77,13 @@ class Form(QGroupBox):
         else:
             self.angle = "radian"
         print(self.angle)
+
+    def toggle_plot_type(self):
+        if self.plot_type == "normal":
+            self.plot_type = "pi"
+        else:
+            self.plot_type = "normal"
+        print(self.plot_type)
 
 
 if __name__ == '__main__':
