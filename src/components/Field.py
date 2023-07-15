@@ -46,3 +46,7 @@ class FunctionField(Field):
 
     def append(self, text):
         self.line_edit.setText(self.line_edit.text() + text)
+
+    def setFocus(self):
+        self.line_edit.setFocus()
+        self.line_edit.setCursorPosition(len(self.line_edit.text()))

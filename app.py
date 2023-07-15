@@ -20,7 +20,6 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Function Plotter")
 
         layout = QVBoxLayout()
-        # layout.setAlignment(Qt.AlignTop)
         H_layout = QHBoxLayout()
 
         self.function_form = FunctionForm(self)
@@ -36,8 +35,6 @@ class MainWindow(QMainWindow):
 
         layout.addLayout(H_layout)
         layout.addLayout(V_layout)
-        # layout.addWidget(toolbar)
-        # layout.addWidget(self.canvas)
 
         widget = QWidget()
         widget.setLayout(layout)
@@ -54,6 +51,8 @@ class MainWindow(QMainWindow):
             return
         self.canvas.axes.clear()
         self.canvas.plot_function(func, x_min, x_max)
+
+
 
 
 app = QApplication(sys.argv)

@@ -23,5 +23,6 @@ class SideBar(QWidget):
 
     def onMyToolBarButtonClick(self):
         self.function_field.append(self.sender().text())
+        self.function_field.setFocus()
         print("click", self.sender().text())
 
